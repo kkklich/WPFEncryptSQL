@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="encryptBaseModelStoreContainer" CdmEntityContainer="encryptBaseEntities">
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="encryptBaseModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="Login_Name_Unique" ColumnName="Login_Name_Unique" />
+          <ScalarProperty Name="Password_text" ColumnName="Password_text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wallet">
+      <EntityTypeMapping TypeName="encryptBaseModel.wallet">
+        <MappingFragment StoreEntitySet="wallet">
+          <ScalarProperty Name="id_wallet" ColumnName="id_wallet" />
+          <ScalarProperty Name="Name_wallet" ColumnName="Name_wallet" />
+          <ScalarProperty Name="description_Wallet" ColumnName="description_Wallet" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

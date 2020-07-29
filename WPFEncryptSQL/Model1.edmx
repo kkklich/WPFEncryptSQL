@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="encryptBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="60" />
+          <Property Name="surname" Type="varchar" MaxLength="60" />
+          <Property Name="Login_Name_Unique" Type="varchar" MaxLength="50" />
+          <Property Name="Password_text" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="wallet">
+          <Key>
+            <PropertyRef Name="id_wallet" />
+          </Key>
+          <Property Name="id_wallet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_wallet" Type="varchar" MaxLength="50" />
+          <Property Name="description_Wallet" Type="varchar" MaxLength="100" />
+          <Property Name="id_client" Type="int" />
+        </EntityType>
+        <Association Name="FK__wallet__id_clien__3A81B327">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="wallet" Type="Self.wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="wallet">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="encryptBaseModelStoreContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wallet" EntityType="Self.wallet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__wallet__id_clien__3A81B327" Association="Self.FK__wallet__id_clien__3A81B327">
+            <End Role="client" EntitySet="client" />
+            <End Role="wallet" EntitySet="wallet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="encryptBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Login_Name_Unique" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password_text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="wallet" Relationship="Self.FK__wallet__id_clien__3A81B327" FromRole="client" ToRole="wallet" />
+        </EntityType>
+        <EntityType Name="wallet">
+          <Key>
+            <PropertyRef Name="id_wallet" />
+          </Key>
+          <Property Name="id_wallet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_wallet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description_Wallet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_client" Type="Int32" />
+          <NavigationProperty Name="client" Relationship="Self.FK__wallet__id_clien__3A81B327" FromRole="wallet" ToRole="client" />
+        </EntityType>
+        <Association Name="FK__wallet__id_clien__3A81B327">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="wallet" Type="Self.wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="wallet">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="encryptBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="wallet" EntityType="Self.wallet" />
+          <AssociationSet Name="FK__wallet__id_clien__3A81B327" Association="Self.FK__wallet__id_clien__3A81B327">
+            <End Role="client" EntitySet="client" />
+            <End Role="wallet" EntitySet="wallet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="encryptBaseModelStoreContainer" CdmEntityContainer="encryptBaseEntities">
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="encryptBaseModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="Login_Name_Unique" ColumnName="Login_Name_Unique" />
+                <ScalarProperty Name="Password_text" ColumnName="Password_text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wallet">
+            <EntityTypeMapping TypeName="encryptBaseModel.wallet">
+              <MappingFragment StoreEntitySet="wallet">
+                <ScalarProperty Name="id_wallet" ColumnName="id_wallet" />
+                <ScalarProperty Name="Name_wallet" ColumnName="Name_wallet" />
+                <ScalarProperty Name="description_Wallet" ColumnName="description_Wallet" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

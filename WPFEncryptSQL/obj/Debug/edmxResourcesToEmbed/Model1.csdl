@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="encryptBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="surname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="Login_Name_Unique" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password_text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wallet" Relationship="Self.FK__wallet__id_clien__3A81B327" FromRole="client" ToRole="wallet" />
+  </EntityType>
+  <EntityType Name="wallet">
+    <Key>
+      <PropertyRef Name="id_wallet" />
+    </Key>
+    <Property Name="id_wallet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_wallet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description_Wallet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="id_client" Type="Int32" />
+    <NavigationProperty Name="client" Relationship="Self.FK__wallet__id_clien__3A81B327" FromRole="wallet" ToRole="client" />
+  </EntityType>
+  <Association Name="FK__wallet__id_clien__3A81B327">
+    <End Role="client" Type="Self.client" Multiplicity="0..1" />
+    <End Role="wallet" Type="Self.wallet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="wallet">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="encryptBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="client" EntityType="Self.client" />
+    <EntitySet Name="wallet" EntityType="Self.wallet" />
+    <AssociationSet Name="FK__wallet__id_clien__3A81B327" Association="Self.FK__wallet__id_clien__3A81B327">
+      <End Role="client" EntitySet="client" />
+      <End Role="wallet" EntitySet="wallet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

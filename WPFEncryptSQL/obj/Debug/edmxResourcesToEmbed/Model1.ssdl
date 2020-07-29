@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="encryptBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="60" />
+    <Property Name="surname" Type="varchar" MaxLength="60" />
+    <Property Name="Login_Name_Unique" Type="varchar" MaxLength="50" />
+    <Property Name="Password_text" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="wallet">
+    <Key>
+      <PropertyRef Name="id_wallet" />
+    </Key>
+    <Property Name="id_wallet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_wallet" Type="varchar" MaxLength="50" />
+    <Property Name="description_Wallet" Type="varchar" MaxLength="100" />
+    <Property Name="id_client" Type="int" />
+  </EntityType>
+  <Association Name="FK__wallet__id_clien__3A81B327">
+    <End Role="client" Type="Self.client" Multiplicity="0..1" />
+    <End Role="wallet" Type="Self.wallet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="wallet">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="encryptBaseModelStoreContainer">
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="wallet" EntityType="Self.wallet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__wallet__id_clien__3A81B327" Association="Self.FK__wallet__id_clien__3A81B327">
+      <End Role="client" EntitySet="client" />
+      <End Role="wallet" EntitySet="wallet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
